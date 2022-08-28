@@ -15,18 +15,12 @@ class AutenticacaoMiddleware
      */
     public function handle($request, Closure $next, $metodo_autenticacao, $perfil)
     {
+        session_start();
 
-        if($metodo_autenticacao == 'padrao'){
-            echo 'verificar usuário e senha no bd';
-        }
-        if($perfil == 'visitante'){
-            echo 'Carregar apenas perfil do banco de dados';
-        }
-        //verifica se o usuário possui acesso à rota
-        if(true){
+        if (isset($_SESSION['email']) && $_SESSION['email'] != '') {
             return $next($request);
         } else {
-            Response ("Acesso negado! Esta rota exige autenticação!");
+            return redirect()->route('site.acesso', ['erro' => 2]);
         }
     }
 }
