@@ -13,9 +13,15 @@ class AutenticacaoMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, $metodo_autenticacao, $perfil)
     {
 
+        if($metodo_autenticacao == 'padrao'){
+            echo 'verificar usuário e senha no bd';
+        }
+        if($perfil == 'visitante'){
+            echo 'Carregar apenas perfil do banco de dados';
+        }
         //verifica se o usuário possui acesso à rota
         if(true){
             return $next($request);

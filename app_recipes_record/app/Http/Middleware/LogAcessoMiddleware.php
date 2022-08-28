@@ -14,16 +14,8 @@ class LogAcessoMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next, $metodo_autenticacao, $perfil)
+    public function handle($request, Closure $next)
     { 
-
-        if($metodo_autenticacao == 'padrao'){
-            echo 'verificar usuário e senha no bd';
-        }
-        if($perfil == 'visitante'){
-            echo 'Carregar apenas perfil do banco de dados';
-        }
-
         //lista todas as variáveis passíveis de serem capturadas da requisição, tanto do user quanto do sv
         //dd($request) 
         $ip = $request->server->get('REMOTE_ADDR');
