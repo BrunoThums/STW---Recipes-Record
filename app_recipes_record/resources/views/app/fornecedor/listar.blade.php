@@ -14,6 +14,7 @@
         </div>
         <div class="informacao-pagina">
             <div style="width: 90%; margin-left:auto; margin-right:auto;">
+                Há {{$fornecedores->total()}} fornecedores
                 <table border="1" width="100%">
                     <thead>
                         <tr>
@@ -36,8 +37,8 @@
                         @endforeach
                     </tbody>
                 </table>
+                {{ $fornecedores->appends($request)->links()}}
             </div>
         </div>
     </div>
-    Fornecedor
 @endsection
