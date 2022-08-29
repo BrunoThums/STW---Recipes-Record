@@ -30,5 +30,4 @@
         </div>
     </div>
 </div>
- Fornecedor
 @endsection

@@ -16,8 +16,8 @@ class FornecedorController extends Controller
         $fornecedores = Fornecedor::where('nome', 'like', '%'.$request->input('nome').'%')
         ->where('uf', 'like', '%'.$request->input('uf').'%')
         ->where('email', 'like', '%'.$request->input('email').'%')
-        ->get();
-        return view('app.fornecedor.listar', ['fornecedores' => $fornecedores]);
+        ->paginate(5);
+        return view('app.fornecedor.listar', ['fornecedores' => $fornecedores, 'request' => $request->all()]);
     }
 
     public function adicionar(Request $request)

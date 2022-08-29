@@ -9,5 +9,5 @@
     <body>
         @include('app.layout._partials.menu')
         @yield('conteudo')
-    </body>r
+    </body>
 </html>
