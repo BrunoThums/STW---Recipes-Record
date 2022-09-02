@@ -2,21 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Produto;
-use App\Unidade;
+use App\Ingrediente;
 use Illuminate\Http\Request;
 
-class ProdutoController extends Controller
+class IngredienteController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $produtos = Produto::paginate(10);
-        return view('app.produto.index', ['produtos' => $produtos, 'request' => $request->all()]);
+        $ingredientes = Ingrediente::paginate(10);
+        return view('app.ingredientes.index', ['ingredientes' => $ingredientes, 'request' => $request->all()]);
     }
 
     /**
@@ -26,8 +25,8 @@ class ProdutoController extends Controller
      */
     public function create()
     {
-        $unidades = Unidade::all();
-        return view('app.produto.create', ['unidades' => $unidades]);
+        $ingredientes = Ingrendiente::all();
+        return view('app.ingrediente.create', ['ingredientes' => $ingredientes]);
     }
 
     /**
@@ -40,9 +39,8 @@ class ProdutoController extends Controller
     {
         $regras = [
             //'unidade_id' => 'exists:<tabela>, <coluna>',
+            'codigo' => 'integer|required',
             'nome' => 'required|min:3|max:40',
-            'descricao' => 'required|min:3|max:2000',
-            'peso' => 'required|integer',
             'unidade_id' => 'exists:unidades,id',
         ];
 
@@ -50,7 +48,6 @@ class ProdutoController extends Controller
             'required' => 'O campo :attribute deve ser preenchido',
             'min' => 'O campo :attribute deve ter no mínimo 3 caracteres',
             'nome.max' => 'O campo :attribute deve ter no máximo 40 caracteres',
-            'descricao.max' => 'O campo :attribute deve ter no máximo 2000 caracteres',
             'integer' => 'O campo :attribute deve ser um número inteiro',
             'unidade_id.exists' => 'A unidade de medida informada não existe'
         ];
@@ -63,49 +60,48 @@ class ProdutoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Produto  $produto
+     * @param  \App\Ingrediente  $ingrediente
      * @return \Illuminate\Http\Response
      */
-    public function show(Produto $produto)
+    public function show(Ingrediente $ingrediente)
     {
-        return view('app.produto.show', ['produto' =>$produto]);
+        return view('app.ingrediente.show', ['ingrediente' =>$ingrediente]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Produto  $produto
+     * @param  \App\Ingrediente  $ingrediente
      * @return \Illuminate\Http\Response
      */
-    public function edit(Produto $produto)
+    public function edit(Ingrediente $ingrediente)
     {
-        $unidades = Unidade::all();
-        return view('app.produto.edit', ['produto' =>$produto, 'unidades' => $unidades]);
+        $ingredientes = Ingredientes::all();
+        return view('app.ingrediente.edit', ['ingrediente' =>$ingrediente, 'ingredientes' => $ingredientes]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Produto  $produto
+     * @param  \App\Ingrediente  $ingrediente
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Produto $produto)
+    public function update(Request $request, Ingrediente $ingrediente)
     {
-        
-        $produto->update($request->all());
-        return redirect()->route('produto.show', ['produto' => $produto->id]);
+        $ingrediente->update($request->all());
+        return redirect()->route('ingrediente.show', ['ingrediente' => $ingrediente->id]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Produto  $produto
+     * @param  \App\Ingrediente  $ingrediente
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Produto $produto)
+    public function destroy(Ingrediente $ingrediente)
     {
-        $produto->delete();
-        return redirect()->route('produto.index', ['produto' => $produto->id]);
+        $ingrediente->delete();
+        return redirect()->route('ingrediente.show', ['ingrediente' => $ingrediente->id]);
     }
 }
