@@ -15,6 +15,7 @@ class IngredienteController extends Controller
     public function index()
     {
         $ingredientes = Ingrediente::paginate(10);
+        
         return view('app.ingredientes.index', ['ingredientes' => $ingredientes, 'request' => $request->all()]);
     }
 
