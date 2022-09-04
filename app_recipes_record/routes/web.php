@@ -16,7 +16,6 @@ Route::post('/acesso', 'LoginController@autenticar')->name('site.acesso');
 Route::middleware('autenticacao:padrao,visitante')->prefix('/app')->group(function () {
     Route::get('/home', 'HomeController@index')->name('app.home');
     Route::get('/sair', 'LoginController@sair')->name('app.sair');
-    Route::get('/cliente', 'ClienteController@index')->name('app.cliente');
 
     Route::get('/fornecedor', 'FornecedorController@index')->name('app.fornecedor');
     Route::get('/fornecedor/listar', 'FornecedorController@listar')->name('app.fornecedor.listar');
@@ -26,6 +25,17 @@ Route::middleware('autenticacao:padrao,visitante')->prefix('/app')->group(functi
     Route::get('/fornecedor/editar/{id}/{msg?}', 'FornecedorController@editar')->name('app.fornecedor.editar');
     Route::get('/fornecedor/excluir/{id}', 'FornecedorController@excluir')->name('app.fornecedor.excluir');
     Route::resource('/produto','ProdutoController');
+
+    Route::resource('cliente', 'ClienteController');
+    Route::resource('pedido', 'PedidoController');
+    //Route::resource('pedido_produto', 'PedidoProdutoController');
+    Route::get('pedido-produto/create/{pedido}', 'PedidoProdutoController@create')->name('pedido-produto.create');
+    Route::post('pedido-produto/store/{pedido}', 'PedidoProdutoController@store')->name('pedido-produto.store');
+
+    Route::get('preparo-receita/create/{pedido}', 'PedidoProdutoController@create')->name('preparo-receita.create');
+    Route::get('preparo-receita/store/{pedido}', 'PedidoProdutoController@store')->name('preparo-receita.store');
+    Route::resource('ingrediente', 'IngredienteController');
+    Route::resource('receita', 'ReceitaController');
 });
 
 Route::fallback(function () {

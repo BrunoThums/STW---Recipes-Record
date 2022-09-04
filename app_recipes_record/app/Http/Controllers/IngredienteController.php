@@ -41,14 +41,14 @@ class IngredienteController extends Controller
         $regras = [
             //'unidade_id' => 'exists:<tabela>, <coluna>',
             'codigo' => 'integer|required',
-            'nome' => 'required|min:3|max:40',
+            'descricao' => 'required|min:3|max:40',
             'unidade_id' => 'exists:unidades,id',
         ];
 
         $feedback = [
             'required' => 'O campo :attribute deve ser preenchido',
             'min' => 'O campo :attribute deve ter no mínimo 3 caracteres',
-            'nome.max' => 'O campo :attribute deve ter no máximo 40 caracteres',
+            'descricao.max' => 'O campo :attribute deve ter no máximo 40 caracteres',
             'integer' => 'O campo :attribute deve ser um número inteiro',
             'unidade_id.exists' => 'A unidade de medida informada não existe'
         ];
