@@ -31,16 +31,18 @@
                             <tr>
                                 <td>{{ $pedido->id }} </td>
                                 <td>{{ $pedido->cliente_id }} </td>
-                                <td><a href="{{ route('pedido-produto.create', ['pedido' => $pedido->id]) }}">Adicionar Produtos</a></td>
+                                <td><a href="{{ route('pedido-produto.create', ['pedido' => $pedido->id]) }}">Adicionar
+                                        Produtos</a></td>
                                 <td><a href="{{ route('pedido.show', ['pedido' => $pedido->id]) }}">Ver</a></td>
                                 <td><a href="{{ route('pedido.edit', ['pedido' => $pedido->id]) }}">Editar</a></td>
 
                                 <td>
-                                    <form id="_form{{$pedido->id}}" method="post"
-                                        action="{{ route('pedido.destroy', [('pedido')=>$pedido -> id]) }}">
+                                    <form id="_form{{ $pedido->id }}" method="post"
+                                        action="{{ route('pedido.destroy', ['pedido' => $pedido->id]) }}">
                                         @method('DELETE')
                                         @csrf
-                                        <a href="#" onclick="document.getElementById('_form{{$pedido->id}}').submit()">Excluir</a>
+                                        <a href="#"
+                                            onclick="document.getElementById('_form{{ $pedido->id }}').submit()">Excluir</a>
                                     </form>
                                 </td>
                             </tr>

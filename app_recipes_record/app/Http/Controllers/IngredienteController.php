@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Ingrediente;
+use App\Unidade;
 use Illuminate\Http\Request;
 
 class IngredienteController extends Controller
@@ -12,11 +13,11 @@ class IngredienteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $ingredientes = Ingrediente::paginate(10);
         
-        return view('app.ingredientes.index', ['ingredientes' => $ingredientes, 'request' => $request->all()]);
+        return view('app.ingrediente.index', ['ingredientes' => $ingredientes, 'request' => $request->all()]);
     }
 
     /**
@@ -26,8 +27,8 @@ class IngredienteController extends Controller
      */
     public function create()
     {
-        $ingredientes = Ingrendiente::all();
-        return view('app.ingrediente.create', ['ingredientes' => $ingredientes]);
+        $unidades = Unidade::all();
+        return view('app.ingrediente.create', ['unidades' => $unidades]);
     }
 
     /**
@@ -40,7 +41,7 @@ class IngredienteController extends Controller
     {
         $regras = [
             //'unidade_id' => 'exists:<tabela>, <coluna>',
-            'codigo' => 'integer|required',
+            'codigo' => 'required|integer|unique:ingredientes,codigo',
             'descricao' => 'required|min:3|max:40',
             'unidade_id' => 'exists:unidades,id',
         ];
@@ -50,12 +51,13 @@ class IngredienteController extends Controller
             'min' => 'O campo :attribute deve ter no mínimo 3 caracteres',
             'descricao.max' => 'O campo :attribute deve ter no máximo 40 caracteres',
             'integer' => 'O campo :attribute deve ser um número inteiro',
-            'unidade_id.exists' => 'A unidade de medida informada não existe'
+            'unidade_id.exists' => 'A unidade de medida informada não existe',
+            'unique' => 'Este :attribute já está cadastrado'
         ];
 
         $request->validate($regras, $feedback);
-        Produto::Create($request->all());
-        return redirect()->route('produto.index');
+        Ingrediente::Create($request->all());
+        return redirect()->route('ingrediente.index');
     }
 
     /**
@@ -77,8 +79,8 @@ class IngredienteController extends Controller
      */
     public function edit(Ingrediente $ingrediente)
     {
-        $ingredientes = Ingredientes::all();
-        return view('app.ingrediente.edit', ['ingrediente' =>$ingrediente, 'ingredientes' => $ingredientes]);
+        $unidades = Unidade::all();
+        return view('app.ingrediente.edit', ['ingrediente' =>$ingrediente, 'unidades' => $unidades]);
     }
 
     /**
@@ -103,6 +105,6 @@ class IngredienteController extends Controller
     public function destroy(Ingrediente $ingrediente)
     {
         $ingrediente->delete();
-        return redirect()->route('ingrediente.show', ['ingrediente' => $ingrediente->id]);
+        return redirect()->route('ingrediente.index', ['ingrediente' => $ingrediente->id]);
     }
 }

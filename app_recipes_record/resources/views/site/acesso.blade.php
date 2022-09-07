@@ -34,9 +34,9 @@
         </div>
         <div class="area-contato">
             <h2>Contato</h2>
-            <span>(11) 3333-4444</span>
+            <span>+55 51 3714-1600</span>
             <br>
-            <span>supergestao@dominio.com.br</span>
+            <span>atendimento@stwautomacao.com.br</span>
         </div>
         <div class="localizacao">
             <h2>Localização</h2>

@@ -1,6 +1,6 @@
 @extends('app.layout.basico')
 
-@section('titulo', 'Produto')
+@section('titulo', 'Ingrediente')
 @section('conteudo')
     <div class="conteudo-pagina">
         <div class="titulo-pagina-2">
@@ -16,24 +16,16 @@
             <div style="width: 30%; margin-left:auto; margin-right:auto;">
                 <table border="1" style="text-align: left">
                     <tr>
-                        <td>ID</td>
-                        <td>{{ $ingrediente->id }}</td>
-                    </tr>
-                    <tr>
                         <td>Código</td>
                         <td>{{ $ingrediente->codigo }}</td>
                     </tr>
                     <tr>
                         <td>Nome</td>
-                        <td>{{ $ingrediente->nome }}</td>
-                    </tr>
-                    <tr>
-                        <td>Unidade ID:</td>
-                        <td>{{ $ingrediente->unidade_id }} kg</td>
+                        <td>{{ $ingrediente->descricao }}</td>
                     </tr>
                     <tr>
                         <td>Unidade de Medida:</td>
-                        <td>{{ $ingrediente->unidade_id }}</td>
+                        <td>{{ $ingrediente->unidade->descricao }}</td>
                     </tr>
                 </table>
             </div>

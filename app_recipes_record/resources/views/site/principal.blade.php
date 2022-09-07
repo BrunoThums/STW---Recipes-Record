@@ -8,12 +8,12 @@
 
         <div class="esquerda">
             <div class="informacoes">
-                <h1>Sistema Super Gestão</h1>
-                <p>Software para gestão empresarial ideal para sua empresa.
+                <h1>Sistema Recipes Record</h1>
+                <p>Software para gestão de receitas, ideal para a sua empresa.
                 <p>
                 <div class="chamada">
                     <img src="{{ asset('/img/check.png') }}">
-                    <span class="texto-branco">Gestão completa e descomplicada</span>
+                    <span class="texto-branco">Cadastro completo e descomplicado</span>
                 </div>
                 <div class="chamada">
                     <img src="{{ asset('img/check.png') }}">
@@ -22,7 +22,7 @@
             </div>
 
             <div class="video">
-                <img src="{{ asset('img/player_video.jpg') }}">
+                <img style= "border-radius:40px" src="{{ asset('img/logoSTW.png') }}">
             </div>
         </div>
 

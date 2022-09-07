@@ -1,10 +1,10 @@
 @extends('app.layout.basico')
 
-@section('titulo', 'Produto')
+@section('titulo', 'Ingrediente')
 @section('conteudo')
     <div class="conteudo-pagina">
         <div class="titulo-pagina-2">
-            <p>Listagem de ingredientes</p>
+            <p>Listagem de Ingredientes</p>
         </div>
         <div class="menu">
             <ul>
@@ -20,6 +20,7 @@
                         <tr>
                             <th>Código</th>
                             <th>Descrição</th>
+                            <th>Unidade</th>
                             <th></th>
                             <th></th>
                             <th></th>
@@ -30,9 +31,17 @@
                             <tr>
                                 <td>{{ $ingrediente->codigo }} </td>
                                 <td>{{ $ingrediente->descricao }} </td>
+                                <td>{{ $ingrediente->unidade->descricao }} </td>
                                 <td><a href="{{ route('ingrediente.show', ['ingrediente' => $ingrediente->id])}}">Ver</a></td>
-                                <td><a href="">Editar</a></td>
-                                <td><a href="">Excluir</a></td>
+                                <td><a href="{{ route('ingrediente.edit', ['ingrediente' => $ingrediente->id]) }}">Editar</a></td>
+                                <td>
+                                    <form id="_form{{$ingrediente->id}}" method="post"
+                                        action="{{ route('ingrediente.destroy', [('ingrediente')=>$ingrediente -> id]) }}">
+                                        @method('DELETE')
+                                        @csrf
+                                        <a href="#" onclick="document.getElementById('_form{{$ingrediente->id}}').submit()">Excluir</a>
+                                    </form>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

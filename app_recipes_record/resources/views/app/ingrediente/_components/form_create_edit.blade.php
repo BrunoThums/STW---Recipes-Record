@@ -7,14 +7,20 @@
             @csrf
 @endif
 
-<input type="text" name="codigo" value="{{ $ingrediente->codigo ?? old('codigo') }}" placeholder="Código" class="borda-preta">
+<input type="text" name="codigo" value="{{ $ingrediente->codigo ?? old('codigo') }}" 
+placeholder="Código" class="borda-preta">
+
 {{ $errors->has('codigo') ? $errors->first('codigo') : '' }}
-<input type="text" name="descricao" value="{{ $ingrediente->descricao ?? old('descricao') }}" placeholder="Descrição" class="borda-preta">
+
+<input type="text" name="descricao" value="{{ $ingrediente->descricao ?? old('descricao') }}" 
+placeholder="Descrição" class="borda-preta">
+
 {{ $errors->has('descricao') ? $errors->first('descricao') : '' }}
+
 <select name="unidade_id">
     <option>--Selecione a Unidade de Medida--</option>
     @foreach ($unidades as $unidade)
-        <option value="{{ $unidade->id }}" {{$unidade->id ??  old('unidade_id') == $unidade->id ? 'selected' : '' }}>
+            <option value="{{ $unidade->id }}" {{($ingrediente->unidade_id ?? old('unidade_id')) == $unidade->id ? 'selected' : '' }}>
             {{ $unidade->descricao }}</option>
     @endforeach
 </select>

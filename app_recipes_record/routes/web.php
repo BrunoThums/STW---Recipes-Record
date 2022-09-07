@@ -6,15 +6,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'PrincipalController@principal')->name('site.index');
 
-Route::get('/sobre-nos', 'SobreNosController@sobreNos')->name('site.sobrenos');
-
 Route::get('/contato', 'ContatoController@contato')->name('site.contato');
 Route::post('/contato', 'ContatoController@salvar')->name('site.contato');
 Route::get('/acesso/{erro?}', 'LoginController@index')->name('site.acesso');
 Route::post('/acesso', 'LoginController@autenticar')->name('site.acesso');
 
 Route::middleware('autenticacao:padrao,visitante')->prefix('/app')->group(function () {
-    Route::get('/home', 'HomeController@index')->name('app.home');
     Route::get('/sair', 'LoginController@sair')->name('app.sair');
 
     Route::get('/fornecedor', 'FornecedorController@index')->name('app.fornecedor');
@@ -31,18 +28,16 @@ Route::middleware('autenticacao:padrao,visitante')->prefix('/app')->group(functi
     //Route::resource('pedido_produto', 'PedidoProdutoController');
     Route::get('pedido-produto/create/{pedido}', 'PedidoProdutoController@create')->name('pedido-produto.create');
     Route::post('pedido-produto/store/{pedido}', 'PedidoProdutoController@store')->name('pedido-produto.store');
-
-    Route::get('preparo-receita/create/{pedido}', 'PedidoProdutoController@create')->name('preparo-receita.create');
-    Route::get('preparo-receita/store/{pedido}', 'PedidoProdutoController@store')->name('preparo-receita.store');
+    
     Route::resource('ingrediente', 'IngredienteController');
     Route::resource('receita', 'ReceitaController');
+    Route::get('preparo-receita/create/{receita}', 'PreparoReceitaController@create')->name('preparo-receita.create');
+    Route::post('preparo-receita/store/{receita}', 'PreparoReceitaController@store')->name('preparo-receita.store');
 });
 
 Route::fallback(function () {
     echo 'A rota acessada não existe. <a href="' . route('site.index') . '">Clique aqui</a> para voltar para a página inicial';
 });
-
-Route::get('/teste/{p1}/{p2}', 'TesteController@teste')->name('teste');
 /*
 verbo http:
 

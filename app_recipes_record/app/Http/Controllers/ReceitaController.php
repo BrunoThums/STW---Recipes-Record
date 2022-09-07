@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Receita;
 use Illuminate\Http\Request;
+use App\Receita;
+use App\User;
 
 class ReceitaController extends Controller
 {
@@ -12,9 +12,10 @@ class ReceitaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $receitas = Receita::paginate(10);
+        return view('app.receita.index', ['receitas'=>$receitas, 'request'=> $request->all()]);
     }
 
     /**
@@ -22,9 +23,10 @@ class ReceitaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Receita $receita)
     {
-        //
+        $users = User::all();
+        return view('app.receita.create', ['receita'=>$receita, 'users' => $users]);
     }
 
     /**
@@ -35,7 +37,26 @@ class ReceitaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $regras = [
+            'user_id' => 'exists:users,id',
+            'codigo' => 'required|integer|unique:receitas,codigo'
+        ];
+
+        $feedback = [
+            'user_id.exists' => 'O cliente informado não existe',
+            'required'=> 'O campo :attribute é obrigatório',
+            'integer' => 'O campo :attribute deve ser um número inteiro',
+            'unique' => 'Este :attribute já está cadastrado'
+        ];
+
+        $request->validate($regras, $feedback);
+
+        $receita= new Receita();
+        $receita->user_id = $request->get('user_id');
+        $receita->codigo = $request->get('codigo');
+        $receita->save();
+
+        return redirect()->route('receita.index');
     }
 
     /**
