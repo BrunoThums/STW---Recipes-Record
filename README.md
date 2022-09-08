@@ -1,5 +1,7 @@
-# STW---Recipes-Record
- 
+# STW - Recipes-Record
+O que é?
+Um gerenciador de receitas
+
 ##### Ferramentas:
 PHP 7.4.6 <br>
 Laravel version 7.0<br>
