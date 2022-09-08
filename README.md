@@ -13,5 +13,5 @@ MySQL Workbench 8.0 CE
 4. Abra o MySQL WorkBench 8.0 CE
 5. De volta ao VSCode, abra o terminal e entre na pasta do projeto
 6. Execute o comando <b>php artisan migrate</b> para criar as tabelas no banco de dados
-7. Execute o comando <b>php artisan db:seed --class=DatabaseSeeder (isto populará as tabelas Unidade e MotivoContato com os valores padrão)
+7. Execute o comando <b>php artisan db:seed --class=DatabaseSeeder (isto populará as tabelas Unidade e MotivoContato com os valores padrão)</b>
 8. Finalmente, execute o comando <b>php artisan serve</b> e desfrute do projeto
