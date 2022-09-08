@@ -1,6 +1,5 @@
 # STW - Recipes-Record
-O que é?
-Um gerenciador de receitas
+Um gerenciador de receitas feito totalmente em laravel
 
 ##### Ferramentas:
 PHP 7.4.6 <br>
