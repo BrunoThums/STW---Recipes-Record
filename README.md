@@ -6,7 +6,7 @@ Laravel version 7.0<br>
 Composer version 2.4.1<br>
 MySQL Workbench 8.0 CE
 
-#Tutorial de instalação
+# Tutorial de instalação
 1. Faça um clone do repositório<br>
 2. Verifique se você possui as dependências instaladas. Em caso negativo, instale-as; estão na pasta "Dependências"<br>
 3. Abra a pasta do projeto utilizando o <b>VSCode</b><br>
