@@ -3,12 +3,15 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Receita extends Model
 {
+    use SoftDeletes;
+    protected $fillable = ['codigo', 'nome', 'user_id']; 
     public function ingredientes() {
         //1 produto pertence a muitos pedidos
-        return $this->belongsToMany('App\Ingrediente', 'preparo_receitas');
+        return $this->belongsToMany('App\Ingrediente', 'preparo_receitas')->withPivot('id', 'ordem','quantidade');
         /*
         return $this->belongsToMany('App\Ingrediente', 'preparo_receitas', 'receita_id', 'ingrediente_id');
         Parâmetros do belongsToMany(1, 2, 3, 4)
@@ -29,6 +32,6 @@ class Receita extends Model
     }
 
     public function user(){
-        return $this->hasOne('App\Receita', 'user_id', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

@@ -10,7 +10,7 @@ class Ingrediente extends Model
 
     public function receitas() {
         //1 produto pertence a muitos pedidos
-        return $this->belongsToMany('App\Receita', 'preparo_receitas');
+        return $this->belongsToMany('App\Receita', 'preparo_receitas')->withPivot('created_at', 'updated_at');
     }
 
     public function unidade()

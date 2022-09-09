@@ -5,6 +5,7 @@ use App\Receita;
 use App\Ingrediente;
 use App\PreparoReceita;
 use App\Unidade;
+use App\User;
 use Illuminate\Http\Request;
 
 class PreparoReceitaController extends Controller
@@ -56,11 +57,11 @@ class PreparoReceitaController extends Controller
         ];
 
         $feedback = [
-            'required' => 'O campo :attribute é obrigatório',
+            'required' => 'O campo :attribute deve ser preenchido',
             'numeric' => 'O campo :attribute precisa ser um número',
             'integer' => 'O campo :attribute precisa ser um número',
-            'receita_id.exists' => 'A receita informada não existe',
-            'ingrediente_id.exists' => 'O ingrediente informado não existe',
+            'receita_id.exists' => 'Selecione uma receita válida',
+            'ingrediente_id.exists' => 'Selecione um ingrediente válido',
         ];
 
         $request->validate($regras, $feedback);
@@ -89,9 +90,9 @@ class PreparoReceitaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Receita $receita)
     {
-        //
+        return view('app.preparo_receita.show', ['receita' =>$receita]);
     }
 
     /**
@@ -100,9 +101,10 @@ class PreparoReceitaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Receita $receita)
     {
-        //
+        $users = User::all();
+        return view('app.receita.edit', ['receita'=>$receita, 'users' => $users]);
     }
 
     /**
@@ -112,9 +114,10 @@ class PreparoReceitaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Receita $receita)
     {
-        //
+        $receita->update($request->all());
+        return redirect()->route('receita.index', ['receita' => $receita->id]);
     }
 
     /**
@@ -123,9 +126,30 @@ class PreparoReceitaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Receita $receita, Ingrediente $ingrediente)
     {
-        //
+        //convencional
+        /*PreparoReceita::where([
+            'receita_id' => $receita->id,
+            'ingrediente_id' => $ingrediente->id
+        ])->delete();*/
+
+        //delete pelo relacionamento
+        $receita->ingredientes()->detach($ingrediente->id);
+        //delete pelo relacionamento, usando a referência inversa
+        ///$ingrediente->receitas()->detach($receitas->id);
+
+        return redirect()->route('preparo-receita.create', ['receita' =>$receita->id]);
+        
+    }
+
+    public function destroyRecipe(Receita $receita){
+        $receita->ingredientes()->detach();
+        $receita->delete();
+        //delete pelo relacionamento, usando a referência inversa
+        ///$ingrediente->receitas()->detach($receitas->id);
+
+        return redirect()->route('receita.index', ['receita' =>$receita->id]);
     }
 }
 

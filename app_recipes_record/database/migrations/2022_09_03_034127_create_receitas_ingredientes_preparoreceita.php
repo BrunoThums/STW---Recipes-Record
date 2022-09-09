@@ -16,13 +16,15 @@ class CreateReceitasIngredientesPreparoreceita extends Migration
         //Convenção sobre chave estrangeira: nome da tabela no sing. + "_id"
         Schema::create('receitas', function (Blueprint $table) {
             $table->id();
+            $table->string('nome', 60);
             $table->integer('codigo');
             //recebe id de users
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
+            $table->softDeletes();
 
             //user_id da tabela users
-            $table->foreign('cliente_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
         });
 
         Schema::create('ingredientes', function (Blueprint $table) {

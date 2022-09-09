@@ -39,12 +39,16 @@ class ReceitaController extends Controller
     {
         $regras = [
             'user_id' => 'exists:users,id',
+            'nome' => 'required|unique:receitas,nome|min:3|max:50',
             'codigo' => 'required|integer|unique:receitas,codigo'
         ];
 
         $feedback = [
-            'user_id.exists' => 'O cliente informado não existe',
-            'required'=> 'O campo :attribute é obrigatório',
+            'user_id.exists' => 'Selecione um usuário válido',
+            'nome.unique' => 'Esta receita já existe',
+            'min' => 'O campo :attribute deve ter no mínimo 3 caracteres',
+            'max' => 'O campo :attribute deve ter no máximo 50 caracteres',
+            'required'=> 'O campo :attribute deve ser preenchido',
             'integer' => 'O campo :attribute deve ser um número inteiro',
             'unique' => 'Este :attribute já está cadastrado'
         ];
@@ -53,6 +57,7 @@ class ReceitaController extends Controller
 
         $receita= new Receita();
         $receita->user_id = $request->get('user_id');
+        $receita->nome = $request->get('nome');
         $receita->codigo = $request->get('codigo');
         $receita->save();
 
@@ -78,7 +83,8 @@ class ReceitaController extends Controller
      */
     public function edit(Receita $receita)
     {
-        //
+        $users = User::all();
+        return view('app.receita.edit', ['receita'=>$receita, 'users' => $users]);
     }
 
     /**
@@ -90,7 +96,8 @@ class ReceitaController extends Controller
      */
     public function update(Request $request, Receita $receita)
     {
-        //
+        $receita->update($request->all());
+        return redirect()->route('receita.index', ['receita' => $receita->id]);
     }
 
     /**
@@ -101,6 +108,8 @@ class ReceitaController extends Controller
      */
     public function destroy(Receita $receita)
     {
-        //
+        $receita->ingredientes()->detach();
+        $receita->delete();
+        return redirect()->route('receita.index', ['receita' => $receita->id]);
     }
 }

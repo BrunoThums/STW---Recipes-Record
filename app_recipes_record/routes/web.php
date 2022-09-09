@@ -10,29 +10,21 @@ Route::get('/contato', 'ContatoController@contato')->name('site.contato');
 Route::post('/contato', 'ContatoController@salvar')->name('site.contato');
 Route::get('/acesso/{erro?}', 'LoginController@index')->name('site.acesso');
 Route::post('/acesso', 'LoginController@autenticar')->name('site.acesso');
+Route::get('/registro', 'LoginController@index_register')->name('site.registro');
+Route::post('/registro', 'LoginController@register')->name('site.registro');
 
 Route::middleware('autenticacao:padrao,visitante')->prefix('/app')->group(function () {
     Route::get('/sair', 'LoginController@sair')->name('app.sair');
-
-    Route::get('/fornecedor', 'FornecedorController@index')->name('app.fornecedor');
-    Route::get('/fornecedor/listar', 'FornecedorController@listar')->name('app.fornecedor.listar');
-    Route::post('/fornecedor/listar', 'FornecedorController@listar')->name('app.fornecedor.listar');
-    Route::get('/fornecedor/adicionar', 'FornecedorController@adicionar')->name('app.fornecedor.adicionar');
-    Route::post('/fornecedor/adicionar', 'FornecedorController@adicionar')->name('app.fornecedor.adicionar');
-    Route::get('/fornecedor/editar/{id}/{msg?}', 'FornecedorController@editar')->name('app.fornecedor.editar');
-    Route::get('/fornecedor/excluir/{id}', 'FornecedorController@excluir')->name('app.fornecedor.excluir');
-    Route::resource('/produto','ProdutoController');
-
-    Route::resource('cliente', 'ClienteController');
-    Route::resource('pedido', 'PedidoController');
-    //Route::resource('pedido_produto', 'PedidoProdutoController');
-    Route::get('pedido-produto/create/{pedido}', 'PedidoProdutoController@create')->name('pedido-produto.create');
-    Route::post('pedido-produto/store/{pedido}', 'PedidoProdutoController@store')->name('pedido-produto.store');
-    
     Route::resource('ingrediente', 'IngredienteController');
+
     Route::resource('receita', 'ReceitaController');
     Route::get('preparo-receita/create/{receita}', 'PreparoReceitaController@create')->name('preparo-receita.create');
     Route::post('preparo-receita/store/{receita}', 'PreparoReceitaController@store')->name('preparo-receita.store');
+    Route::delete('preparo-receita.destroy/{receita}/{ingrediente}', 'PreparoReceitaController@destroy')->name('preparo-receita.destroy');
+    Route::get('preparo-receita/{receita}/edit', 'PreparoReceitaController@edit')->name('preparo-receita.edit');
+    Route::put('preparo-receita/{receita}/update', 'PreparoReceitaController@update')->name('preparo-receita.update');
+    Route::delete('preparo-receita.destroyRecipe/{receita}', 'PreparoReceitaController@destroyRecipe')->name('preparo-receita.destroyRecipe');
+    Route::get('preparo-receita.show/{receita}', 'PreparoReceitaController@show')->name('preparo-receita.show');
 });
 
 Route::fallback(function () {

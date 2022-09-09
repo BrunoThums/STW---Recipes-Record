@@ -51,7 +51,7 @@ class IngredienteController extends Controller
             'min' => 'O campo :attribute deve ter no mínimo 3 caracteres',
             'descricao.max' => 'O campo :attribute deve ter no máximo 40 caracteres',
             'integer' => 'O campo :attribute deve ser um número inteiro',
-            'unidade_id.exists' => 'A unidade de medida informada não existe',
+            'unidade_id.exists' => 'Selecione uma unidade de medida válida',
             'unique' => 'Este :attribute já está cadastrado'
         ];
 
@@ -107,4 +107,5 @@ class IngredienteController extends Controller
         $ingrediente->delete();
         return redirect()->route('ingrediente.index', ['ingrediente' => $ingrediente->id]);
     }
+
 }

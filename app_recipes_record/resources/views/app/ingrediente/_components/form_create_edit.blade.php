@@ -25,6 +25,11 @@ placeholder="Descrição" class="borda-preta">
     @endforeach
 </select>
 {{ $errors->has('unidade_id') ? $errors->first('unidade_id') : '' }}
+
+@if (isset($ingrediente->id))
+<button type="submit" style="background-color: dodgerblue">Editar</button>
+@else
 <button type="submit" class="borda-preta">Cadastrar</button>
+@endif
 
 </form>

@@ -9,12 +9,11 @@
         <div class="menu">
             <ul>
                 <li><a href="{{ route('receita.index') }}">Voltar</a></li>
-                <li><a href="">Consulta</a></li>
             </ul>
         </div>
         <div class="informacao-pagina">
             <div style="width: 30%; margin-left:auto; margin-right:auto;">
-                @component('app.receita._components.form_create_edit', ['users' =>users])
+                @component('app.receita._components.form_create_edit', ['users' =>$users])
                 @endcomponent
             </div>
         </div>

@@ -14,14 +14,15 @@
             <div style="width:30%; margin-left:auto; margin-right:auto">
                 <form action={{ route('site.acesso') }} method="POST">
                     @csrf
-                    <input name="usuario" value="{{ old('usuario') }}" type="text" placeholder="Email" class="borda-preta">
-                    {{ $errors->has('usuario') ? $errors->first('usuario') : '' }}
+                    <input name="email" value="{{ old('email') }}" type="text" placeholder="Email" class="borda-preta">
+                    {{ $errors->has('email') ? $errors->first('email') : '' }}
                     <input name="senha" value="{{ old('senha') }}" type="password" placeholder="Senha"
                         class="borda-preta">
                     {{ $errors->has('senha') ? $errors->first('senha') : '' }}
                     <button type="submit" class="borda-preta">Acessar</button>
                 </form>
                 {{ isset($erro) && $erro !='' ? $erro : ''}}
+                <a href="{{ route('site.registro') }}">Registre-se</a>
             </div>
         </div>
     </div>

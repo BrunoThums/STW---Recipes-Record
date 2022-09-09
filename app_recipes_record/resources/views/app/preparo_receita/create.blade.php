@@ -9,16 +9,14 @@
         <div class="menu">
             <ul>
                 <li><a href="{{ route('receita.index') }}">Voltar</a></li>
-                <li><a href="">Consulta</a></li>
             </ul>
         </div>
         <div class="informacao-pagina">
-            <h4>Detalhes da Receita</h4>
-            <p>ID da Receita: {{ $receita->id }}</p>
-            <p>Usuário: {{$receita->user_id}}</p>
-
+            <h2>{{$receita->nome}}</h2>
+            <h4 style="color: lightgray">Por {{$receita->user->name}}</h4>
+            
             <div style="width: 30%; margin-left:auto; margin-right:auto;">
-                <h4>Ingredientes da receita</h4>
+                <h2>Ingredientes</h2>
                 <table border="1" width="100%">
                     <thead>
                         <tr>
@@ -26,15 +24,23 @@
                             <th>Nome do Produto</th>
                             <th>Quantidade</th>
                             <th>UN</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($receita->ingredientes as $ingrediente)
                         <tr>
-                            <td>{{$ingrediente->ordem}}</td>
+                            <td>{{$ingrediente->pivot->ordem}}</td>
                             <td>{{$ingrediente->descricao}}</td>
-                            <td>{{$ingrediente->quantidade}}</td>
+                            <td>{{$ingrediente->pivot->quantidade}}</td>
                             <td>{{$ingrediente->unidade->descricao}}</td>
+                            <td>
+                                <form id="form_{{$receita->id}}_{{$ingrediente->id}}" method="post" action="{{route('preparo-receita.destroy', ['receita'=>$receita->id, 'ingrediente'=>$ingrediente->id])}}">
+                                @method('DELETE')
+                                @csrf
+                                <a href="#" onclick="document.getElementById('form_{{$receita->id}}_{{$ingrediente->id}}').submit()">Excluir</a>
+                                </form>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
