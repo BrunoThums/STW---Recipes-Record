@@ -6,12 +6,12 @@
         <option>-- Selecione um Ingrediente --</option>
 
         @foreach($ingredientes as $ingrediente)
-            <option value="{{ $ingrediente->id }}" {{ old('ingrediente_id') == $ingrediente->id ? 'selected' : '' }} >{{ $ingrediente->descricao }}</option>
+            <option value="{{ $ingrediente->id }}" {{ old('ingrediente_id') == $ingrediente->id ? 'selected' : '' }} >{{ ($ingrediente->descricao) }}</option>
         @endforeach
     </select>
     {{ $errors->has('ingrediente_id') ? $errors->first('ingrediente_id') : '' }}
     <input type="number" name="quantidade" value="{{ old('quantidade') ? old('quantidade') : ''}}" placeholder="Quantidade" class="borda-preta">
     {{$errors->has('quantidade') ? $errors->first('quantidade') : ''}}
 
-    <button type="submit" class="borda-preta">Cadastrar</button>
+    <button type="submit" class="borda-preta">Adicionar</button>
 <form>

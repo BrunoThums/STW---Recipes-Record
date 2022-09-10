@@ -23,6 +23,7 @@
                     {{ $errors->has('senha') ? $errors->first('senha') : '' }}
                     <button style="background-color:dodgerblue" type="submit" class="borda-preta">Registrar-se</button>
                 </form>
+                <a href="{{ route('site.acesso') }}">Login</a>
             </div>
         </div>
     </div>
