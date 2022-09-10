@@ -17,4 +17,4 @@ MySQL Workbench 8.0 CE
 7. Execute o comando <b>php artisan db:seed --class=DatabaseSeeder</b> (isto populará as tabelas Unidade e MotivoContato com os valores padrão)
 8. Finalmente, execute o comando <b>php artisan serve</b> e desfrute do projeto
 
-OBS: a ordenação dos ingredientes é feita de forma manual, evitando duplicatas com o atributo UNIQUE
+OBS: a ordenação dos ingredientes é feita de forma manual
